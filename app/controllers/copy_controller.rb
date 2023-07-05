@@ -1,6 +1,18 @@
 class CopyController < ApplicationController
   def index
-    render_copy_data(get_copy_data)
+    copy_data = get_copy_data
+    since = params[:since]
+
+    if since.nil?
+      render_copy_data(copy_data)
+    else
+      filtered_copy_data = filter_copy_data(copy_data, since)
+      if filtered_copy_data.empty?
+        render json: { message: "We don't have records after the specified time" }
+      else
+        render_copy_data(filtered_copy_data)
+      end
+    end
   end
 
   def show
@@ -23,6 +35,10 @@ class CopyController < ApplicationController
   end
 
   private
+
+  def filter_copy_data(copy_data, since)
+    copy_data.select { |record| record['createdTime'] > since }
+  end
 
   def get_copy_data
     if File.exist?(FILE_PATH)

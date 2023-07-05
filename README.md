@@ -1,24 +1,32 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
 Things you may want to cover:
 
-* Ruby version
+* Requirements:
 
-* System dependencies
+1. Setup an Airtable with the following dummy data:
 
-* Configuration
+  - Create [airtable.com](http://airtable.com/) account
+  - Go to https://airtable.com/account and generate & copy the API key
+  - Go to [https://airtable.com](https://airtable.com/) and click on `Add a base` from scratch and call it `Copy`
+  - Set 2 columns called `Key` and `Copy`
+  - Add these rows
+      - `greeting`, `Hi {name}, welcome to {app}!`
+      - `greetingVIP`, `{greeting} You're on the VIP plan.`
+      - `intro.created_at`, `Intro created on {created_at, datetime}`
+      - `intro.updated_at`, `Intro updated on {updated_at, datetime}`
 
-* Database creation
+2. Configure your credentials(`AIRTABLE_API_KEY`, `AIRTABLE_BASE_ID`, `AIRTABLE_TABLE_NAME`) in .env file
 
-* Database initialization
+3. Load data from the local JSON file:
+  `rake load:copy`
 
-* How to run the test suite
+  If we don't have the data in local JSON file or not have the JSON file(`copy.json`)
 
-* Services (job queues, cache servers, search engines, etc.)
+  then,
 
-* Deployment instructions
+  -  Run the test task for store your airtable data into the json file(copy.json) in the root directory:
+    `rake import:copy`
 
-* ...
+4. Run the rails server
+  `rails s`
