@@ -28,3 +28,10 @@ Things you may want to cover:
 
 4. Run the rails server
   `rails s`
+
+Requirement link:
+
+https://brdgapp.notion.site/Ruby-on-rails-coding-challenges-c08621b4f9f14ecfa841bc0b4ad1a245
+
+Note: This repo is for Challenge #1: Copy API in the above link
+      Challenge #1: Copy API coding challenge (https://brdgapp.notion.site/Copy-API-coding-challenge-0eef1dc4ef754bcca69076de5d532a5b)
