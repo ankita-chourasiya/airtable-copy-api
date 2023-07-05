@@ -1,4 +1,4 @@
-#Requirement link:
+Requirement link:
 
 https://brdgapp.notion.site/Ruby-on-rails-coding-challenges-c08621b4f9f14ecfa841bc0b4ad1a245
 
