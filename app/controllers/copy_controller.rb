@@ -1,6 +1,4 @@
 class CopyController < ApplicationController
-  FILE_PATH = Rails.root.join('copy.json')
-
   def index
     render_copy_data(get_copy_data)
   end
@@ -15,6 +13,13 @@ class CopyController < ApplicationController
     else
       render_not_found
     end
+  end
+
+  def refresh
+    airtable_records = fetch_airtable_data
+    copy_data = transform_airtable_data(airtable_records)
+    update_copy_data(copy_data)
+    render_copy_data(copy_data)
   end
 
   private
@@ -38,5 +43,34 @@ class CopyController < ApplicationController
 
   def render_not_found
     render json: { error: 'Key not found' }, status: :not_found
+  end
+
+  def fetch_airtable_data
+    url = "https://api.airtable.com/v0/#{AIRTABLE_BASE_ID}/#{AIRTABLE_TABLE_NAME}"
+    headers = { 'Authorization' => "Bearer #{AIRTABLE_API_KEY}" }
+
+    response = HTTParty.get(url, headers: headers)
+
+    if response.code == 200
+      JSON.parse(response.body)['records']
+    else
+      []
+    end
+  end
+
+  def transform_airtable_data(airtable_records)
+    airtable_records.map do |record|
+      {
+        'id' => record['id'],
+        'createdTime' => record['createdTime'],
+        'fields' => record['fields']
+      }
+    end
+  end
+
+  def update_copy_data(copy_data)
+    File.open(FILE_PATH, 'w') do |file|
+      file.write(JSON.pretty_generate(copy_data))
+    end
   end
 end
