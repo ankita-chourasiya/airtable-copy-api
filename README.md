@@ -2,8 +2,6 @@
 
 Things you may want to cover:
 
-* Requirements:
-
 1. Setup an Airtable with the following dummy data:
 
   - Create [airtable.com](http://airtable.com/) account
