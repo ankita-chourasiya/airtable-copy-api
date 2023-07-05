@@ -18,9 +18,18 @@ namespace :import do
 
       records = data['records']
 
+      record_data = []
+
       records.each do |record|
+        record_data << record
         puts "Field Value: #{record}"
       end
+
+      File.open('copy.json', 'w') do |file|
+        file.write(JSON.pretty_generate(record_data))
+      end
+
+      puts "Records saved to copy.json"
     else
       puts "Error: #{response.code} - #{response.message}"
     end
