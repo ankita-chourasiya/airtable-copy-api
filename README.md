@@ -35,3 +35,10 @@ https://brdgapp.notion.site/Ruby-on-rails-coding-challenges-c08621b4f9f14ecfa841
 
 Note: This repo is for Challenge #1: Copy API in the above link
       Challenge #1: Copy API coding challenge (https://brdgapp.notion.site/Copy-API-coding-challenge-0eef1dc4ef754bcca69076de5d532a5b)
+
+
+Below I attach the collection for all the api's
+
+
+[Uploading copy api.postman_collection.json…]()
+
