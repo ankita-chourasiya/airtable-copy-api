@@ -39,6 +39,4 @@ Note: This repo is for Challenge #1: Copy API in the above link
 
 Below I attach the collection for all the api's
 
-
-[Uploading copy api.postman_collection.json…]()
-
+[copy api.postman_collection.zip](https://github.com/ankita-chourasiya/airtable-copy-api/files/11957679/copy.api.postman_collection.zip)
