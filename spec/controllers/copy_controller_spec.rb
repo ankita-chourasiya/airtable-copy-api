@@ -74,4 +74,30 @@ RSpec.describe CopyController, type: :controller do
       end
     end
   end
+
+  describe 'GET #show' do
+    context 'when a valid key is provided' do
+      let(:key) { 'greeting' }
+
+      it 'returns the copy data with the matching key in JSON format' do
+        get :show, params: { key: key }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.content_type).to include('application/json')
+        expect(response.body).to include('Hello, {name}!')
+      end
+    end
+
+    context 'when an invalid key is provided' do
+      let(:key) { 'invalid_key' }
+
+      it 'returns a "Key not found" error message in JSON format' do
+        get :show, params: { key: key }
+
+        expect(response).to have_http_status(:not_found)
+        expect(response.content_type).to include('application/json')
+        expect(response.body).to eq('{"error":"Key not found"}')
+      end
+    end
+  end
 end
