@@ -100,4 +100,42 @@ RSpec.describe CopyController, type: :controller do
       end
     end
   end
+
+  describe 'Get #refresh' do
+    let(:airtable_records) do
+      [
+        {
+          'id' => 'record1',
+          'createdTime' => '2023-07-05T10:30:00Z',
+          'fields' => { 'Key' => 'greeting', 'Copy' => 'Hello, {name}!' }
+        },
+        {
+          'id' => 'record2',
+          'createdTime' => '2023-07-05T11:00:00Z',
+          'fields' => { 'Key' => 'bye', 'Copy' => 'Goodbye' }
+        }
+      ]
+    end
+
+    before do
+      allow(controller).to receive(:fetch_airtable_data).and_return(airtable_records)
+      allow(controller).to receive(:update_copy_data)
+    end
+
+    it 'fetches data from Airtable, updates the copy data, and renders the updated copy data' do
+      expect(controller).to receive(:fetch_airtable_data).and_return(airtable_records)
+      expect(controller).to receive(:update_copy_data).with(airtable_records)
+
+      get :refresh
+
+      expect(response).to have_http_status(:ok)
+      expect(response.content_type).to include('application/json')
+
+      expected_copy_data = [
+        { 'id' => 'record1', 'createdTime' => '2023-07-05T10:30:00Z', 'fields' => { 'Key' => 'greeting', 'Copy' => 'Hello, {name}!' } },
+        { 'id' => 'record2', 'createdTime' => '2023-07-05T11:00:00Z', 'fields' => { 'Key' => 'bye', 'Copy' => 'Goodbye' } }
+      ]
+      expect(JSON.parse(response.body)).to eq(expected_copy_data)
+    end
+  end
 end
